@@ -8,33 +8,54 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, { useState } from 'react';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import PlayerCard from './components/PlayerCard';
+import Colors from './utilities/Color';
 
 import Steph from './assets/steph.png';
 import Kyrie from './assets/kyrie.png';
 import Dlo from './assets/dlo.png';
+import Durant from './assets/kd.png'
 
 const playerData = [
   { id: '1', playerName: 'Stephen Curry', playerPhoto: Steph },
   { id: '2', playerName: 'Kyrie Irving', playerPhoto: Kyrie },
   { id: '3', playerName: 'D\'Angelo Russell', playerPhoto: Dlo },
+  { id: '4', playerName: 'Kevin Durant', playerPhoto: Durant },
 ];
 
 const App = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState('');
+  const [currMode, toggleLightDark] = useState(Colors.light);
+  
+  const styles = getStyles(currMode);
+
   const openModal = (playerName) => {
     setSelectedPlayer(playerName);
     setModalVisible(true);
   };
+
+  function toggleLightDarkHandler() {
+    currMode === Colors.light ? toggleLightDark(Colors.dark) : toggleLightDark(Colors.light);
+  }
+
   return (
     <View style={styles.container}>
+      <View style={styles.lightDarkContainer}>
+        <MaterialCommunityIcons
+          name="theme-light-dark"
+          style={styles.lightDarkItem}
+          size={35}
+          onPress={toggleLightDarkHandler}
+        />
+      </View>
       <FlatList
         data={playerData}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => openModal(item.playerName)}>
-            <PlayerCard playerName={item.playerName} playerPhoto={item.playerPhoto} />
+            <PlayerCard playerName={item.playerName} playerPhoto={item.playerPhoto} mode={currMode}/>
           </TouchableOpacity>
         )}
         keyExtractor={(item) => item.id}
@@ -59,15 +80,15 @@ const App = () => {
           </TouchableOpacity>
         </View>
       </Modal>
-      <StatusBar style="auto"/>
+      <StatusBar style={currMode.STATUS}/>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
+const getStyles = (currMode) => StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#f2f2f2',
+    flex: 10,
+    backgroundColor: currMode.PRIMARY,
     padding: 10,
     paddingTop: 50,
   },
@@ -83,6 +104,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 10,
   },
+  lightDarkContainer: {
+    flex: 0.1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  lightDarkItem: {
+    color: currMode.OPPOSITE,
+  }
 });
 
 export default App;

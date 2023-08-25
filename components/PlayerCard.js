@@ -1,18 +1,22 @@
 import React from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native';
 
-const PlayerCard = ({ playerPhoto, playerName }) => {
-  return (
-    <View style={styles.cardContainer}>
-      <Image source={playerPhoto} style={styles.playerImage} />
-      <Text style={styles.playerName}>{playerName}</Text>
-    </View>
-  );
+function PlayerCard(props) {
+    const styles = getStyles(props.mode);
+    return (
+        <View style={styles.cardContainer}>
+          <Image source={props.playerPhoto} style={styles.playerImage} />
+          <Text style={styles.playerName}>{props.playerName}</Text>
+        </View>
+    );
 };
 
-const styles = StyleSheet.create({
+
+export default PlayerCard;
+
+const getStyles = (currMode) => StyleSheet.create({
     cardContainer: {
-      backgroundColor: 'white',
+      backgroundColor: currMode.SECONDARY,
       borderRadius: 10,
       elevation: 3,
       shadowColor: '#000',
@@ -36,7 +40,6 @@ const styles = StyleSheet.create({
       fontSize: 16,
       fontWeight: 'bold',
       textAlign: 'center',
+      color: currMode.OPPOSITE,
     },
   });
-
-export default PlayerCard;
