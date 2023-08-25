@@ -1,5 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
+import { 
+  StyleSheet, 
+  Text, 
+  View, 
+  FlatList, 
+  Modal,
+  TouchableOpacity,
+} from 'react-native';
+import React, { useState } from 'react';
 
 import PlayerCard from './components/PlayerCard';
 
@@ -14,16 +22,43 @@ const playerData = [
 ];
 
 const App = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedPlayer, setSelectedPlayer] = useState('');
+  const openModal = (playerName) => {
+    setSelectedPlayer(playerName);
+    setModalVisible(true);
+  };
   return (
     <View style={styles.container}>
       <FlatList
         data={playerData}
         renderItem={({ item }) => (
-          <PlayerCard playerName={item.playerName} playerPhoto={item.playerPhoto} />
+          <TouchableOpacity onPress={() => openModal(item.playerName)}>
+            <PlayerCard playerName={item.playerName} playerPhoto={item.playerPhoto} />
+          </TouchableOpacity>
         )}
         keyExtractor={(item) => item.id}
         numColumns={3}
       />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(false);
+        }}
+      >
+        <View style={styles.modalContainer}>
+          <Text>{selectedPlayer}</Text>
+          {/* Add more content to the modal here */}
+          <TouchableOpacity
+            onPress={() => setModalVisible(false)}
+            style={styles.closeButton}
+          >
+            <Text>Close</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
       <StatusBar style="auto"/>
     </View>
   );
@@ -35,6 +70,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#f2f2f2',
     padding: 10,
     paddingTop: 50,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  closeButton: {
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
   },
 });
 

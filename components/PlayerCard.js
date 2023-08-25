@@ -22,7 +22,9 @@ const styles = StyleSheet.create({
       padding: 10,
       alignItems: 'center',
       width: 110,
+      height: 165,
       margin: 5,
+      alignItems: 'center',
     },
     playerImage: {
       width: 100,
@@ -33,6 +35,7 @@ const styles = StyleSheet.create({
     playerName: {
       fontSize: 16,
       fontWeight: 'bold',
+      textAlign: 'center',
     },
   });
 
