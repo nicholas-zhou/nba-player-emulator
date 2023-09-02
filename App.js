@@ -17,12 +17,14 @@ import Steph from './assets/steph.png';
 import Kyrie from './assets/kyrie.png';
 import Dlo from './assets/dlo.png';
 import Durant from './assets/kd.png'
+import Luka from './assets/luka.png'
 
 const playerData = [
   { id: '1', playerName: 'Stephen Curry', playerPhoto: Steph },
   { id: '2', playerName: 'Kyrie Irving', playerPhoto: Kyrie },
   { id: '3', playerName: 'D\'Angelo Russell', playerPhoto: Dlo },
   { id: '4', playerName: 'Kevin Durant', playerPhoto: Durant },
+  { id: '5', playerName: 'Luka Doncic', playerPhoto: Luka },
 ];
 
 const App = () => {
