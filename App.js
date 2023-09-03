@@ -12,6 +12,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import PlayerCard from './components/PlayerCard';
 import Colors from './utilities/Color';
+import PlayerMap from './utilities/PlayerMap'
 
 import Steph from './assets/steph.png';
 import Kyrie from './assets/kyrie.png';
@@ -30,12 +31,14 @@ const playerData = [
 const App = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState('');
+  const [selectedPlayerId, setSelectedPlayerId] = useState('');
   const [currMode, toggleLightDark] = useState(Colors.light);
   
   const styles = getStyles(currMode);
 
   const openModal = (playerName) => {
     setSelectedPlayer(playerName);
+    setSelectedPlayerId(PlayerMap[playerName]);
     setModalVisible(true);
   };
 
@@ -72,7 +75,7 @@ const App = () => {
         }}
       >
         <View style={styles.modalContainer}>
-          <Text>{selectedPlayer}</Text>
+          <Text>{selectedPlayerId}</Text>
           {/* Add more content to the modal here */}
           <TouchableOpacity
             onPress={() => setModalVisible(false)}

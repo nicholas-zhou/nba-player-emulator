@@ -1,4 +1,4 @@
-{
+const PlayerMap = {
     "Precious Achiuwa": 1630173,
     "Steven Adams": 203500,
     "Bam Adebayo": 1628389,
@@ -535,3 +535,5 @@
     "Cody Zeller": 203469,
     "Ivica Zubac": 1627826
 }
+
+export default PlayerMap;
